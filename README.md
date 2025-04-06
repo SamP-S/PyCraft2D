@@ -1,5 +1,11 @@
-TODO LIST
+# PyCraft2D
+## Installation
+Tkinter is required but can't be installed through pip and instead must be installed through your Linux package manarger.
+```bash
+sudo apt install python3-tk
+```
 
+## TODO
 Fix:
 - Movement
 - Jumping
