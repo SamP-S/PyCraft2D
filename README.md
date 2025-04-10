@@ -14,21 +14,28 @@ Add States:
 - title screen
 - main menu
 - settings
-- game
-- boss key
+- game pla
 
 Add graphics engine:
 - Create graphics objects
 - Allow for use and deletion
+- Texture Atlas
 
-Implement Physics engine:
-- Raycasting
+Implement Physics:
+- Rigidbody physics
 - AABB collision detection
+- Collision response
+- 2D to world
+
+Implement world subsystems:
+- Liquid
+- Lighting
 
 Potentially Add intermediary input manager:
 - allow for rebinding of controls
 
 Add more level generation:
+Complete in various passes
 - Trees
 - Ores
 - Caves
@@ -38,3 +45,4 @@ Implement Mobs:
 - cows
 - zombies
 - control/ai systems
+
