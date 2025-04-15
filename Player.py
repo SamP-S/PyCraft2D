@@ -1,6 +1,5 @@
 import pygame as pg
-from math import sin
-from Constants import *
+from math import *
 
 class Player:
     

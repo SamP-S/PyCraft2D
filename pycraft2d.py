@@ -4,7 +4,6 @@ import pygame as pg
 from Blocks import *
 from Player import *
 from math import *
-from Constants import *
 import random as r
 
 def gen_world():

@@ -1,4 +1,0 @@
-# game constants
-PIXEL_PER_SQUARE = 32
-CHUNK_WIDTH = 32
-CHUNK_HEIGHT = 64
