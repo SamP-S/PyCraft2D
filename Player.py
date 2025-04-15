@@ -8,10 +8,9 @@ class Player:
         self.name = name
         self.x = 0
         self.y = 0
-        self.y_cache = 0
         
-    def update(self):
-        self.y = self.y_cache + sin(pg.time.get_ticks() / 1000)
+    def update(self, dt):
+        pass
 
     def __str__(self):
         return f"{self.name}({self.x}, {self.y})"

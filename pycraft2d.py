@@ -25,7 +25,7 @@ class App:
         self.screen = pg.display.set_mode((800, 600))
         pg.display.set_caption("Pycraft2D")
         self.clock = pg.time.Clock()
-        self.running = True
+        self.exit_flag = False
         self.world = gen_world()
         self.player = Player("Steve")        
         
@@ -34,29 +34,43 @@ class App:
         for j in range(CHUNK_HEIGHT-1, -1, -1):
             if self.world[j][0] != 0:
                 self.player.y = j
-                self.player.y_cache = j
                 break
             
 
     def run(self):
-        while self.running:
+        while self.exit_flag == False:
+            # get delta time
+            dt = self.clock.tick()
+            
+            # event handling
             for event in pg.event.get():
-                if event.type == pg.QUIT:
+                if event.type == pg.QUIT or event.type == pg.WINDOWCLOSE:
                     self.running = False
-                    
+                elif event.type == pg.KEYDOWN or event.type == pg.KEYUP:
+                    print(f"{event.type} {event.key}")
+                elif event.type == pg.MOUSEBUTTONDOWN or event.type == pg.MOUSEBUTTONUP:
+                    print(f"{event.type} {event.pos} {event.button}")
+                elif event.type == pg.MOUSEMOTION:
+                    print(f"{event.type} {event.pos} {event.rel} {event.buttons}")
+                elif event.type == pg.WINDOWRESIZED:
+                    print(f"{event.type} {event.w} {event.h}")
+            
+            # main loop
             self.screen.fill((255, 255, 255))
-            self.player.update()
+            self.player.update(dt)
             self.draw_world()
             pg.display.flip()
-            self.clock.tick(60)
+            
+        
+        # cleanup
+        pg.display.quit()
         pg.quit()
         
         
     def draw_world(self):
         # draw chunk
         for y, row in enumerate(self.world):
-            for x, block_id in enumerate(row):           
-                print(self.screen.get_rect())    
+            for x, block_id in enumerate(row): 
                 # draw block
                 pg.draw.rect(
                     self.screen, 

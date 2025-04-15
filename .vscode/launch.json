@@ -8,7 +8,7 @@
             "name": "Python Debugger: Current File",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/pycraft2d_v2.py",
+            "program": "${workspaceFolder}/pycraft2d.py",
             "console": "integratedTerminal"
         }
     ]
