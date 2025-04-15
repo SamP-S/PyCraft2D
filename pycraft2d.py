@@ -5,6 +5,7 @@ from Blocks import *
 from Player import *
 from math import *
 from Constants import *
+import random as r
 
 def gen_world():
     world = []
@@ -12,7 +13,7 @@ def gen_world():
         row = []
         for i in range(CHUNK_WIDTH):
             if j < CHUNK_HEIGHT // 2:
-                row.append(1)
+                row.append(r.randint(1, MAX_BLOCK))
             else:
                 row.append(0)
         world.append(row)
