@@ -22,6 +22,8 @@ class App:
     def __init__(self):
         pg.init()
         self.screen = pg.display.set_mode((800, 600))
+        print(self.screen.get_size())
+        self.world_surf = pg.Surface(self.screen.get_size(), flags=pg.SRCALPHA)
         pg.display.set_caption("Pycraft2D")
         self.clock = pg.time.Clock()
         self.exit_flag = False
@@ -39,7 +41,7 @@ class App:
     def run(self):
         while self.exit_flag == False:
             # get delta time
-            dt = self.clock.tick()
+            dt = self.clock.tick() / 1000.0
             
             # event handling
             for event in pg.event.get():
@@ -55,12 +57,12 @@ class App:
                     print(f"{event.type} {event.w} {event.h}")
             
             # main loop
-            self.screen.fill((255, 255, 255))
+            self.screen.fill((100, 240, 255, 255))
+            self.screen.blit(self.world_surf, (0, 0))
             self.player.update(dt)
             self.draw_world()
             pg.display.flip()
             
-        
         # cleanup
         pg.display.quit()
         pg.quit()
@@ -72,7 +74,7 @@ class App:
             for x, block_id in enumerate(row): 
                 # draw block
                 pg.draw.rect(
-                    self.screen, 
+                    self.world_surf, 
                     BLOCKS[block_id].colour,
                     (
                         self.screen.get_rect()[2] // 2 + (x - self.player.x) * PIXEL_PER_SQUARE, 
@@ -85,7 +87,7 @@ class App:
                 # block outline
                 if BLOCKS[block_id].is_outlined:
                     pg.draw.rect(
-                        self.screen, 
+                        self.world_surf, 
                         pg.color.THECOLORS["black"], 
                         (
                             self.screen.get_rect()[2] // 2 + (x - self.player.x) * PIXEL_PER_SQUARE, 

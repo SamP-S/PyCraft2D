@@ -18,7 +18,7 @@ class Block:
 
 # block constants
 BLOCKS = [
-    Block(0, "air", pg.color.THECOLORS["white"], False),
+    Block(0, "air", (255, 255, 255, 0), False),
     Block(1, "dirt", pg.color.THECOLORS["saddlebrown"]),
     Block(2, "stone", pg.color.THECOLORS["grey"]),
     Block(3, "wood", pg.color.THECOLORS["brown"]),
