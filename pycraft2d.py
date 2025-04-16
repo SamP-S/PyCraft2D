@@ -19,7 +19,9 @@ def gen_world():
     return world
 
 class App:
+    
     def __init__(self):
+        # initialisation
         pg.init()
         self.screen = pg.display.set_mode((800, 600))
         print(self.screen.get_size())
@@ -36,7 +38,6 @@ class App:
             if self.world[j][0] != 0:
                 self.player.y = j
                 break
-            
 
     def run(self):
         while self.exit_flag == False:
@@ -46,13 +47,9 @@ class App:
             # event handling
             for event in pg.event.get():
                 if event.type == pg.QUIT or event.type == pg.WINDOWCLOSE:
-                    self.running = False
-                elif event.type == pg.KEYDOWN or event.type == pg.KEYUP:
-                    print(f"{event.type} {event.key}")
-                elif event.type == pg.MOUSEBUTTONDOWN or event.type == pg.MOUSEBUTTONUP:
-                    print(f"{event.type} {event.pos} {event.button}")
-                elif event.type == pg.MOUSEMOTION:
-                    print(f"{event.type} {event.pos} {event.rel} {event.buttons}")
+                    self.exit_flag = True
+                elif event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
+                    self.exit_flag = True
                 elif event.type == pg.WINDOWRESIZED:
                     print(f"{event.type} {event.w} {event.h}")
             

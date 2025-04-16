@@ -26,6 +26,9 @@ class Player:
             dx += self.MAX_SPEED
         self.x += dx * dt
         self.y += dy * dt
+        
+    def draw(self, dt):
+        pass
 
     def __str__(self):
         return f"{self.name}({self.x}, {self.y})"
