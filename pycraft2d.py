@@ -5,18 +5,8 @@ from Blocks import *
 from Player import *
 from math import *
 import random as r
+from World import *
 
-def gen_world():
-    world = []
-    for j in range(CHUNK_HEIGHT):
-        row = []
-        for i in range(CHUNK_WIDTH):
-            if j < CHUNK_HEIGHT // 2:
-                row.append(r.randint(1, MAX_BLOCK))
-            else:
-                row.append(0)
-        world.append(row)
-    return world
 
 class App:
     
@@ -29,7 +19,7 @@ class App:
         pg.display.set_caption("Pycraft2D")
         self.clock = pg.time.Clock()
         self.exit_flag = False
-        self.world = gen_world()
+        self.world = World()
         self.player = Player("Steve")        
         
         # set player start position
