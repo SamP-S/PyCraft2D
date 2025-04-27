@@ -24,8 +24,8 @@ class App:
         
         # set player start position
         self.player.x = 0
-        for j in range(CHUNK_HEIGHT-1, -1, -1):
-            if self.world[j][0] != 0:
+        for j in range(Chunk.CHUNK_HEIGHT-1, -1, -1):
+            if self.world.chunks[0].blocks[j * Chunk.CHUNK_WIDTH + 0] != 0:
                 self.player.y = j
                 break
 
@@ -57,9 +57,10 @@ class App:
         
     def draw_world(self):
         # draw chunk
-        for y, row in enumerate(self.world):
-            for x, block_id in enumerate(row): 
-                # draw block
+        for k, chunk in enumerate(self.world.chunks):
+            for pos, block_id in enumerate(chunk.blocks):
+                y = pos // Chunk.CHUNK_WIDTH
+                x = pos - y * Chunk.CHUNK_WIDTH                    # draw block
                 pg.draw.rect(
                     self.world_surf, 
                     BLOCKS[block_id].colour,

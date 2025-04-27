@@ -29,7 +29,7 @@ class World:
     
     def __init__(self):
         self.chunks = []
-        self.generate_world()
+        self.generate()
 
     # TODO: use seed
     def generate(self):
@@ -39,9 +39,9 @@ class World:
             
             # create chunk
             blocks = []
-            for j in range(World.CHUNK_HEIGHT):
-                for i in range(World.CHUNK_WIDTH):
-                    if j < World.CHUNK_HEIGHT // 2:
+            for j in range(Chunk.CHUNK_HEIGHT):
+                for i in range(Chunk.CHUNK_WIDTH):
+                    if j < Chunk.CHUNK_HEIGHT // 2:
                         blocks.append(r.randint(1, MAX_BLOCK))
                     else:
                         blocks.append(0)
