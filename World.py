@@ -14,6 +14,8 @@ class Chunk:
     def __init__(self, x, blocks):
         self.x = x
         self.blocks = [0] * (Chunk.CHUNK_WIDTH * Chunk.CHUNK_HEIGHT)
+        for j in range(Chunk.CHUNK_HEIGHT // 2):
+            self.blocks[j * Chunk.CHUNK_WIDTH:(j+1) * Chunk.CHUNK_WIDTH] = [1] * Chunk.CHUNK_WIDTH
         
 
 # Summary: World class
