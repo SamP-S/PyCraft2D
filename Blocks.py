@@ -21,5 +21,6 @@ BLOCKS = [
     Block(2, "stone", pg.color.THECOLORS["grey"]),
     Block(3, "wood", pg.color.THECOLORS["brown"]),
     Block(4, "leaves", pg.color.THECOLORS["green"]),
+    Block(5, "bedrock", pg.color.THECOLORS["black"]),
 ]
 MAX_BLOCK = 4
