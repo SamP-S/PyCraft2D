@@ -10,15 +10,11 @@ class Chunk:
     
     CHUNK_WIDTH = 32
     CHUNK_HEIGHT = 64
-    
+
     def __init__(self, x, blocks):
         self.x = x
-        self.blocks = [0] * (Chunk.CHUNK_WIDTH * Chunk.CHUNK_HEIGHT)
-        self.blocks[0 : Chunk.CHUNK_WIDTH] = [5] * Chunk.CHUNK_WIDTH
-        for j in range(1, Chunk.CHUNK_HEIGHT // 2):
-            self.blocks[j * Chunk.CHUNK_WIDTH:(j+1) * Chunk.CHUNK_WIDTH] = [1] * Chunk.CHUNK_WIDTH
+        self.blocks = blocks
         
-
 # Summary: World class
 # Responsible for management of all chunks in the world including:
 # - generating the world using seed num. (height, trees, ore veins, water, etc.)
@@ -27,28 +23,43 @@ class Chunk:
 
 class World:
     
-    WORLD_SIZE = 4
-
-    
     def __init__(self):
         self.chunks = []
         self.generate()
 
     # TODO: use seed
     def generate(self):
-    
+        # generate blank world
         self.chunks = []
         for k in range(World.WORLD_SIZE):
-            
-            # create chunk
-            blocks = []
-            for j in range(Chunk.CHUNK_HEIGHT):
-                for i in range(Chunk.CHUNK_WIDTH):
-                    if j < Chunk.CHUNK_HEIGHT // 2:
-                        blocks.append(r.randint(1, MAX_BLOCK))
-                    else:
-                        blocks.append(0)
-            self.chunks.append(Chunk(k * Chunk.CHUNK_WIDTH, blocks))
+            blocks = [0] * Chunk.CHUNK_WIDTH * Chunk.CHUNK_HEIGHT
+            chunk = Chunk((k - World.WORLD_SIZE // 2 - 1) * Chunk.CHUNK_WIDTH, blocks)
+            self.chunks.append(chunk)
+    
+    @staticmethod    
+    def generate_flat(world):
+        pass
+
+    # use seed & perlin noise
+    @staticmethod
+    def generate_std(world):
+        pass
+    
+    # CONSTS
+    # needs to be after funcs
+    WORLD_SIZE = 4  
+    WORLD_GENERATORS = {
+        "flat" : generate_flat,
+        "standard" : generate_std
+    }
+        
+    
+    def generate(self):
+        self.blocks = [Block.find_block("air")] * (Chunk.CHUNK_WIDTH * Chunk.CHUNK_HEIGHT)
+        self.blocks[0 : Chunk.CHUNK_WIDTH] = [5] * Chunk.CHUNK_WIDTH
+        for j in range(1, Chunk.CHUNK_HEIGHT // 2 - 1):
+            self.blocks[j * Chunk.CHUNK_WIDTH:(j+1) * Chunk.CHUNK_WIDTH] = [Block.find_block("dirt")] * Chunk.CHUNK_WIDTH
+        self.blocks[0 : Chunk.CHUNK_WIDTH] = [Block.find_block("bedrock")] * Chunk.CHUNK_WIDTH
         
     def draw(self):
         pass
