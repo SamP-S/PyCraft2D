@@ -63,7 +63,7 @@ class App:
                 x = pos - y * Chunk.CHUNK_WIDTH                    # draw block
                 pg.draw.rect(
                     self.world_surf, 
-                    BLOCKS[block_id].colour,
+                    Block.BLOCKS[block_id].colour,
                     (
                         self.screen.get_rect()[2] // 2 + (x - self.player.x) * PIXEL_PER_SQUARE, 
                         self.screen.get_rect()[3] // 2 - (y - self.player.y) * PIXEL_PER_SQUARE,  
@@ -73,7 +73,7 @@ class App:
                 )
                 
                 # block outline
-                if BLOCKS[block_id].is_outlined:
+                if Block.BLOCKS[block_id].is_outlined:
                     pg.draw.rect(
                         self.world_surf, 
                         pg.color.THECOLORS["black"], 

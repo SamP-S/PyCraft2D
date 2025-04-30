@@ -1,10 +1,15 @@
 import random as r
 from Blocks import *
 
+class WorldConfig:
+    
+    def __init__(self):
+        self.name = "Default World"
+        self.seed = r.randint(0, 1000)
+        self.generator = "flat"
+        
 # Summary: Chunk class
 # Responsible for the data management of all the blocks in side a single chunk including:
-# - storing the blocks in a 1D array
-# - storing the chunk position in the world
 
 class Chunk:
     
@@ -25,6 +30,7 @@ class World:
     
     def __init__(self):
         self.chunks = []
+        self.generator = "flat"
         self.generate()
 
     # TODO: use seed
