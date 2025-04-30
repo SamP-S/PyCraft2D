@@ -13,8 +13,8 @@ class WorldConfig:
 
 class Chunk:
     
-    CHUNK_WIDTH = 32
-    CHUNK_HEIGHT = 64
+    WIDTH = 32
+    HEIGHT = 64
 
     def __init__(self, x, blocks):
         self.x = x
@@ -28,44 +28,48 @@ class Chunk:
 
 class World:
     
+    # CONSTS
+    SIZE = 4
+    MIN_X, MAX_X = -(SIZE // 2) * Chunk.WIDTH, (SIZE // 2) * Chunk.WIDTH - 1    # inclusive
+    MIN_Y, MAX_Y = 0, Chunk.HEIGHT - 1                                          # inclusive
+    RANGE_X, RANGE_Y = MAX_X - MIN_X + 1, MAX_Y - MIN_Y + 1
+    
     def __init__(self):
         self.chunks = []
-        self.generator = "flat"
-        self.generate()
-
-    # TODO: use seed
-    def generate(self):
-        # generate blank world
-        self.chunks = []
-        for k in range(World.WORLD_SIZE):
-            blocks = [0] * Chunk.CHUNK_WIDTH * Chunk.CHUNK_HEIGHT
-            chunk = Chunk((k - World.WORLD_SIZE // 2 - 1) * Chunk.CHUNK_WIDTH, blocks)
+        for k in range(World.SIZE):
+            blocks = [0] * Chunk.WIDTH * Chunk.HEIGHT
+            chunk = Chunk((k - World.SIZE // 2) * Chunk.WIDTH, blocks)
             self.chunks.append(chunk)
-    
-    @staticmethod    
-    def generate_flat(world):
-        pass
+            
+    def get_block(self, x, y):
+        assert(x >= World.MIN_X and x <= World.MAX_X)
+        assert(y >= World.MIN_Y and y <= World.MAX_Y)
+        
+        chunk_idx = (x + World.RANGE_X // 2) // Chunk.WIDTH
+        chunk_x = x % Chunk.WIDTH
+        return self.chunks[chunk_idx].blocks[y * Chunk.WIDTH + chunk_x]
 
-    # use seed & perlin noise
-    @staticmethod
-    def generate_std(world):
+    def set_block(self, x, y, block_id):
+        assert(x >= World.MIN_X and x <= World.MAX_X)
+        assert(y >= World.MIN_Y and y <= World.MAX_Y)
+        
+        chunk_idx = (x + World.RANGE_X // 2) // Chunk.WIDTH
+        chunk_x = x % Chunk.WIDTH
+        self.chunks[chunk_idx].blocks[y * Chunk.WIDTH + chunk_x] = block_id
+        print(f"Set block at ({x}, {y}) to {block_id}")
+    
+    def fill_blocks(self, ox, oy, dx, dy, block_id):
         pass
     
-    # CONSTS
-    # needs to be after funcs
-    WORLD_SIZE = 4  
-    WORLD_GENERATORS = {
-        "flat" : generate_flat,
-        "standard" : generate_std
-    }
-        
-    
-    def generate(self):
-        self.blocks = [Block.find_block("air")] * (Chunk.CHUNK_WIDTH * Chunk.CHUNK_HEIGHT)
-        self.blocks[0 : Chunk.CHUNK_WIDTH] = [5] * Chunk.CHUNK_WIDTH
-        for j in range(1, Chunk.CHUNK_HEIGHT // 2 - 1):
-            self.blocks[j * Chunk.CHUNK_WIDTH:(j+1) * Chunk.CHUNK_WIDTH] = [Block.find_block("dirt")] * Chunk.CHUNK_WIDTH
-        self.blocks[0 : Chunk.CHUNK_WIDTH] = [Block.find_block("bedrock")] * Chunk.CHUNK_WIDTH
-        
     def draw(self):
         pass
+
+if __name__ == "__main__":
+    world = World()
+    print(world.set_block(0, 0, 1))
+    print(world.set_block(0, 1, 2))
+    print(world.set_block(0, 2, 3))
+    print(world.set_block(World.MIN_X, 0, 1))
+    print(world.set_block(World.MAX_X, 0, 1))
+    print(world.set_block(0, World.MIN_Y, 1))
+    print(world.set_block(0, World.MAX_Y, 1))
