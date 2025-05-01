@@ -56,20 +56,29 @@ class World:
         chunk_idx = (x + World.RANGE_X // 2) // Chunk.WIDTH
         chunk_x = x % Chunk.WIDTH
         self.chunks[chunk_idx].blocks[y * Chunk.WIDTH + chunk_x] = block_id
-        print(f"Set block at ({x}, {y}) to {block_id}")
+        print(f"Set block at ({x}, {y}) : <{chunk_idx} {y * Chunk.WIDTH + chunk_x} ({chunk_x} {y}) > to {block_id}")
     
     def fill_blocks(self, ox, oy, dx, dy, block_id):
-        pass
+        assert(ox >= World.MIN_X and ox <= World.MAX_X)
+        assert(oy >= World.MIN_Y and oy <= World.MAX_Y)
+        assert(dx >= World.MIN_X and dx <= World.MAX_X)
+        assert(dy >= World.MIN_Y and dy <= World.MAX_Y)
+        
+        dir_x, dir_y = 1 if ox < dx else -1, 1 if oy < dy else -1
+        for y in range(oy, dy + dir_y, dir_y):
+            for x in range(ox, dx + dir_x, dir_x):
+                self.set_block(x, y, block_id)
     
     def draw(self):
         pass
 
 if __name__ == "__main__":
     world = World()
-    print(world.set_block(0, 0, 1))
-    print(world.set_block(0, 1, 2))
-    print(world.set_block(0, 2, 3))
-    print(world.set_block(World.MIN_X, 0, 1))
-    print(world.set_block(World.MAX_X, 0, 1))
-    print(world.set_block(0, World.MIN_Y, 1))
-    print(world.set_block(0, World.MAX_Y, 1))
+    world.set_block(0, 0, 1)
+    world.set_block(0, 1, 2)
+    world.set_block(1, 0, 3)
+    world.set_block(World.MIN_X, 0, 1)
+    world.set_block(World.MAX_X, 0, 1)
+    world.set_block(0, World.MIN_Y, 1)
+    world.set_block(0, World.MAX_Y, 1)
+    world.fill_blocks(32, 4, 63, 7, 1)
