@@ -23,22 +23,6 @@ class Block:
         self.colour = colour
         self.is_outlined = is_outlined
         self.breaktime = breaktime
-        
-        # block constants
-        self.BLOCKS = [
-            Block(
-                id=0, 
-                name="air",
-                colour=(255, 255, 255, 0),
-                is_outlined=False,
-            ),
-            Block(1, "dirt", pg.color.THECOLORS["saddlebrown"]),
-            Block(2, "stone", pg.color.THECOLORS["grey"], is_outlined=False,),
-            Block(3, "wood", pg.color.THECOLORS["brown"]),
-            Block(4, "leaves", pg.color.THECOLORS["green"],),
-            Block(5, "bedrock", pg.color.THECOLORS["black"],),
-            Block(6, "grass", pg.color.THECOLORS["green"]),
-        ]
 
     def __repr__(self):
         return f"Block(name={self.name}, texture={self.texture})"
@@ -49,7 +33,19 @@ class Block:
             if block.name == name:
                 return block
         return None
-    
 
-
-
+# block constants as a class member variable
+Block.BLOCKS = [
+    Block(
+        id=0, 
+        name="air",
+        colour=(255, 255, 255, 0),
+        is_outlined=False,
+    ),
+    Block(1, "dirt", pg.color.THECOLORS["saddlebrown"]),
+    Block(2, "stone", pg.color.THECOLORS["grey"], is_outlined=False,),
+    Block(3, "wood", pg.color.THECOLORS["brown"]),
+    Block(4, "leaves", pg.color.THECOLORS["green"],),
+    Block(5, "bedrock", pg.color.THECOLORS["black"],),
+    Block(6, "grass", pg.color.THECOLORS["green"]),
+]
