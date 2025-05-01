@@ -7,23 +7,22 @@ PIXEL_PER_SQUARE = 32
 # block data structure
 class Block:
     
-    class Breakability(Enum):
-        GAS = 0
-        LIQUID = 1
-        SOFT = 2
-        REGULAR = 3
-        STONE = 4
-        IRON = 5
-        GOLD = 6
-        DIAMOND = 7
-        UNBREAKABLE = 8
+    class BreakTime:
+        default = True
+        wood = True
+        stone = True
+        iron = True
+        gold = True
+        diamond = True
+        shears = True
+        sword = True
              
-    def __init__(self, id, name, colour, is_outlined=True, breakability=Breakability.REGULAR):
+    def __init__(self, id, name, colour, is_outlined=True, breaktime=BreakTime()):
         self.id = id
         self.name = name
         self.colour = colour
         self.is_outlined = is_outlined
-        self.breakability = breakability
+        self.breaktime = breaktime
         
         # block constants
         self.BLOCKS = [
@@ -31,14 +30,13 @@ class Block:
                 id=0, 
                 name="air",
                 colour=(255, 255, 255, 0),
-                is_outlined=False, 
-                breakability=Block.Breakability.GAS
+                is_outlined=False,
             ),
             Block(1, "dirt", pg.color.THECOLORS["saddlebrown"]),
-            Block(2, "stone", pg.color.THECOLORS["grey"], is_outlined=False, breakability=Block.Breakability.STONE),
+            Block(2, "stone", pg.color.THECOLORS["grey"], is_outlined=False,),
             Block(3, "wood", pg.color.THECOLORS["brown"]),
-            Block(4, "leaves", pg.color.THECOLORS["green"], breakability=Block.Breakability.SOFT),
-            Block(5, "bedrock", pg.color.THECOLORS["black"], breakability=Block.Breakability.UNBREAKABLE),
+            Block(4, "leaves", pg.color.THECOLORS["green"],),
+            Block(5, "bedrock", pg.color.THECOLORS["black"],),
             Block(6, "grass", pg.color.THECOLORS["green"]),
         ]
 
