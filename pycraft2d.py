@@ -1,11 +1,11 @@
 import time
 import os
 import pygame as pg
-from Blocks import *
-from Player import *
+from blocks import *
+from player import *
 from math import *
 import random as r
-from World import *
+from world import *
 
 
 class App:

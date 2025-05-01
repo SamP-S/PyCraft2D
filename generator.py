@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from State import State
-from World import World
+from state import State
+from world import World, Chunk
 
 # immutable settings required before world generation
 class WorldConfig:

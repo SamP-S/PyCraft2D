@@ -1,5 +1,5 @@
 import random as r
-from Blocks import *
+from blocks import *
 
 class WorldConfig:
     
