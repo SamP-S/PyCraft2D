@@ -6,6 +6,7 @@ from player import *
 from math import *
 import random as r
 from world import *
+from generator import *
 
 
 class App:
@@ -19,8 +20,10 @@ class App:
         pg.display.set_caption("Pycraft2D")
         self.clock = pg.time.Clock()
         self.exit_flag = False
-        self.world = World()
-        self.player = Player("Steve")        
+        self.world_config = WorldConfig()
+        self.world = create_world(self.world_config)
+        self.player = Player("Steve")
+        self.cursor_pos = (0, 0)
         
         # set player start position
         self.player.x = 0
@@ -42,6 +45,11 @@ class App:
                     self.exit_flag = True
                 elif event.type == pg.WINDOWRESIZED:
                     print(f"{event.type} {event.w} {event.h}")
+                elif event.type == pg.MOUSEBUTTONDOWN or event.type == pg.MOUSEBUTTONUP:
+                    self.cursor_pos = event.pos
+                    print(self.cursor_pos)
+                elif event.type == pg.MOUSEMOTION:
+                    self.cursor_pos = event.pos
             
             # main loop
             self.screen.fill((100, 240, 255, 255))
@@ -53,7 +61,6 @@ class App:
         # cleanup
         pg.display.quit()
         pg.quit()
-        
         
     def draw_world(self):
         # draw chunk
@@ -75,7 +82,7 @@ class App:
                 # block outline
                 if Block.BLOCKS[block_id].is_outlined:
                     pg.draw.rect(
-                        self.world_surf, 
+                        self.world_surf,
                         pg.color.THECOLORS["black"], 
                         (
                             self.screen.get_rect()[2] // 2 + (x - self.player.x) * PIXEL_PER_SQUARE, 

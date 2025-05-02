@@ -19,8 +19,7 @@ class WorldGenerator(ABC):
     
     @abstractmethod
     def generate(self, world_config):
-        pass
-    
+        pass     
 
 class FlatWorldGenerator(WorldGenerator):
     
@@ -31,17 +30,10 @@ class FlatWorldGenerator(WorldGenerator):
     
     def generate(self, world_config):
         world = World()
-        for k in range(world.WORLD_SIZE):
-            blocks = [0] * Chunk.WIDTH * Chunk.CHUNK_HEIGHT
-            chunk = Chunk((k - world.WORLD_SIZE // 2 - 1) * Chunk.CHUNK_WIDTH, blocks)
-            world.chunks.append(chunk)
-            
-        # generate blank world
-        self.chunks = []
-        for k in range(World.WORLD_SIZE):
-            blocks = [0] * Chunk.CHUNK_WIDTH * Chunk.CHUNK_HEIGHT
-            chunk = Chunk((k - World.WORLD_SIZE // 2 - 1) * Chunk.CHUNK_WIDTH, blocks)
-            self.chunks.append(chunk)
+        world.fill_blocks(World.MIN_X, 0, World.MAX_X, 0, State.R_BLOCKS["bedrock"])
+        world.fill_blocks(World.MIN_X, 1, World.MAX_X, 14, State.R_BLOCKS["dirt"])
+        world.fill_blocks(World.MIN_X, 15, World.MAX_X, 15, State.R_BLOCKS["grass"])
+        return world
             
 class StandardWorldGenerator(WorldGenerator):
     
@@ -53,5 +45,10 @@ class StandardWorldGenerator(WorldGenerator):
     def generate(self, world_config):
         pass
 
-State.R_WORLD_GENERATORS.append(FlatWorldGenerator())
-State.R_WORLD_GENERATORS.append(StandardWorldGenerator())
+
+def create_world(world_config):
+    gen = State.R_WORLD_GENERATORS[world_config.generator]
+    return gen.generate(world_config)
+
+State.R_WORLD_GENERATORS["flat"] = FlatWorldGenerator()
+State.R_WORLD_GENERATORS["standard"] = StandardWorldGenerator()

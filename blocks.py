@@ -1,5 +1,6 @@
 import pygame as pg
 from enum import Enum
+from state import *
 
 # game constants
 PIXEL_PER_SQUARE = 32
@@ -23,10 +24,11 @@ class Block:
         self.colour = colour
         self.is_outlined = is_outlined
         self.breaktime = breaktime
+        State.R_BLOCKS[name] = id
 
     def __repr__(self):
-        return f"Block(name={self.name}, texture={self.texture})"
-    
+        return f"{self.name}({self.id})"
+       
     @classmethod
     def find_block(cls, name):
         for block in cls.BLOCKS:
