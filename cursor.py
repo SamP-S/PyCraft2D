@@ -8,13 +8,13 @@ class Cursor:
         self.player = None
     
     def update(self, dt):
-        cursor_pos = pg.mouse.get_pos()
+        cx, cy = pg.mouse.get_pos()
         if self.player is None:
             print("Cursor has no player")
         else:
             window_width = pg.display.get_surface().get_width()
-            self.x = self.player.x - (window_width // 2) + cursor_pos[0]
-            self.y = self.player.y - (window_width // 2) + cursor_pos[1]
+            self.x = (cx // 32) * 32
+            self.y = (cy // 32) * 32
         
     def draw(self):
         pass

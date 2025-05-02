@@ -63,8 +63,8 @@ class App:
                 self.world_surf,
                 pg.color.THECOLORS["black"], 
                 (
-                    self.cursor_pos[0], 
-                    self.cursor_pos[1],  
+                    self.cursor.x, 
+                    self.cursor.y,  
                     PIXEL_PER_SQUARE, 
                     PIXEL_PER_SQUARE
                 ),
