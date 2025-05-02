@@ -7,6 +7,7 @@ from math import *
 import random as r
 from world import *
 from generator import *
+from cursor import *
 
 
 class App:
@@ -23,7 +24,8 @@ class App:
         self.world_config = WorldConfig()
         self.world = create_world(self.world_config)
         self.player = Player("Steve")
-        self.cursor_pos = (0, 0)
+        self.cursor = Cursor()
+        self.cursor.player = self.player
         
         # set player start position
         self.player.x = 0
@@ -46,16 +48,30 @@ class App:
                 elif event.type == pg.WINDOWRESIZED:
                     print(f"{event.type} {event.w} {event.h}")
                 elif event.type == pg.MOUSEBUTTONDOWN or event.type == pg.MOUSEBUTTONUP:
-                    self.cursor_pos = event.pos
-                    print(self.cursor_pos)
+                    pass
                 elif event.type == pg.MOUSEMOTION:
-                    self.cursor_pos = event.pos
+                    pass
             
             # main loop
-            self.screen.fill((100, 240, 255, 255))
-            self.screen.blit(self.world_surf, (0, 0))
             self.player.update(dt)
+            self.cursor.update(dt)
+            
+            # draw calls
+            self.screen.fill((100, 240, 255, 255))
             self.draw_world()
+            pg.draw.rect(
+                self.world_surf,
+                pg.color.THECOLORS["black"], 
+                (
+                    self.cursor_pos[0], 
+                    self.cursor_pos[1],  
+                    PIXEL_PER_SQUARE, 
+                    PIXEL_PER_SQUARE
+                ),
+                width=1
+            )
+            
+            self.screen.blit(self.world_surf, (0, 0))
             pg.display.flip()
             
         # cleanup
@@ -78,20 +94,6 @@ class App:
                         PIXEL_PER_SQUARE
                     )
                 )
-                
-                # block outline
-                if Block.BLOCKS[block_id].is_outlined:
-                    pg.draw.rect(
-                        self.world_surf,
-                        pg.color.THECOLORS["black"], 
-                        (
-                            self.screen.get_rect()[2] // 2 + (x - self.player.x) * PIXEL_PER_SQUARE, 
-                            self.screen.get_rect()[3] // 2 - (y - self.player.y) * PIXEL_PER_SQUARE,  
-                            PIXEL_PER_SQUARE, 
-                            PIXEL_PER_SQUARE
-                        ),
-                        width=1
-                    )
 
 if __name__ == "__main__":
     print("main pycraft")
