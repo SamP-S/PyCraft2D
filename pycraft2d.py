@@ -6,7 +6,6 @@ from player import *
 from math import *
 import random as r
 from world import *
-from generator import *
 from cursor import *
 
 
@@ -21,8 +20,7 @@ class App:
         pg.display.set_caption("Pycraft2D")
         self.clock = pg.time.Clock()
         self.exit_flag = False
-        self.world_config = WorldConfig()
-        self.world = create_world(self.world_config)
+        self.world = World()
         self.player = Player("Steve")
         self.cursor = Cursor()
         self.cursor.player = self.player
