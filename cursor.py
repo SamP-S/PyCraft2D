@@ -1,10 +1,10 @@
 import pygame as pg
+from core import *
 
-class Cursor:
+class Cursor(Entity):
     
     def __init__(self):
-        self.x = 0
-        self.y = 0
+        super().__init__()
         self.player = None
     
     def update(self, dt):
@@ -13,8 +13,8 @@ class Cursor:
             print("Cursor has no player")
         else:
             window_width = pg.display.get_surface().get_width()
-            self.x = (cx // 32) * 32
-            self.y = (cy // 32) * 32
+            self.x = ((cx + self.player.x) // 32) * 32
+            self.y = ((cy + self.player.y) // 32) * 32
         
     def draw(self):
         pass

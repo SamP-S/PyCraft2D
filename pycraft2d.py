@@ -58,6 +58,8 @@ class App:
             
             # draw calls
             self.screen.fill((100, 240, 255, 255))
+            self.world_surf.fill((0, 0, 0, 0))
+            
             self.draw_world()
             pg.draw.rect(
                 self.world_surf,

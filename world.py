@@ -1,32 +1,18 @@
 import random as r
 from blocks import *
+from core import *
 
-class WorldConfig:
-    
-    def __init__(self):
-        self.name = "Default World"
-        self.seed = r.randint(0, 1000)
-        self.generator = "flat"
-        
-# Summary: Chunk class
-# Responsible for the data management of all the blocks in side a single chunk including:
 
 class Chunk:
-    
+
     WIDTH = 32
     HEIGHT = 64
 
     def __init__(self, x, blocks):
         self.x = x
         self.blocks = blocks
-        
-# Summary: World class
-# Responsible for management of all chunks in the world including:
-# - generating the world using seed num. (height, trees, ore veins, water, etc.)
-# - loading/unloading chunks according to player position
-# - storing changes in the world
 
-class World:
+class World(Entity):
     
     # CONSTS
     SIZE = 4
@@ -35,11 +21,16 @@ class World:
     RANGE_X, RANGE_Y = MAX_X - MIN_X + 1, MAX_Y - MIN_Y + 1
     
     def __init__(self):
+        self.name = "Default World"
+        self.seed = r.randint(0, 1000)
+        self.generator = "flat"
+        self.gen_config = {}
         self.chunks = []
         for k in range(World.SIZE):
             blocks = [0] * Chunk.WIDTH * Chunk.HEIGHT
             chunk = Chunk((k - World.SIZE // 2) * Chunk.WIDTH, blocks)
             self.chunks.append(chunk)
+        self._gen_flat()
             
     def get_block(self, x, y):
         assert(x >= World.MIN_X and x <= World.MAX_X)
@@ -68,6 +59,14 @@ class World:
         for y in range(oy, dy + dir_y, dir_y):
             for x in range(ox, dx + dir_x, dir_x):
                 self.set_block(x, y, block_id)
+                
+    def _gen_flat(self):
+        self.fill_blocks(World.MIN_X, 0, World.MAX_X, 0, State.R_BLOCKS["bedrock"])
+        self.fill_blocks(World.MIN_X, 1, World.MAX_X, 14, State.R_BLOCKS["dirt"])
+        self.fill_blocks(World.MIN_X, 15, World.MAX_X, 15, State.R_BLOCKS["grass"])
+    
+    def _gen_std(self):
+        pass
     
     def draw(self):
         pass
