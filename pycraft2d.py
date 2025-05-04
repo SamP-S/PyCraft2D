@@ -7,6 +7,7 @@ from math import *
 import random as r
 from world import *
 from cursor import *
+from camera import *
 
 
 class App:
@@ -24,6 +25,7 @@ class App:
         self.player = Player("Steve")
         self.cursor = Cursor()
         self.cursor.player = self.player
+        self.camera = Camera()    
         
         # set player start position
         self.player.x = 0
@@ -44,9 +46,9 @@ class App:
                 elif event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
                     self.exit_flag = True
                 elif event.type == pg.WINDOWRESIZED:
-                    print(f"{event.type} {event.w} {event.h}")
+                    print(f"{event.type} ({event.x} {event.y})")
                 elif event.type == pg.MOUSEBUTTONDOWN or event.type == pg.MOUSEBUTTONUP:
-                    pass
+                    print(f"{event.type} ({event.pos[0]} {event.pos[1]} {event.button})-> <{self.camera.screen_to_world(event.pos[0], event.pos[1])}>")
                 elif event.type == pg.MOUSEMOTION:
                     pass
             
