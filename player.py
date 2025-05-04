@@ -1,17 +1,16 @@
 import pygame as pg
 from math import *
+from core import *
 
-class Player:
+class Player(Entity):
     
     MAX_SPEED = 4.0
     
     def __init__(self, name: str):
         super().__init__()
-        self.name = name
-        self.x = 0
-        self.y = 0
-        self.dx = 0
-        self.dy = 0
+        self.name:str = name
+        self.dx:float = 0.0
+        self.dy:float = 0.0
         
         
     def update(self, dt):
