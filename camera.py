@@ -47,9 +47,6 @@ class Camera:
         sy = h - y
         return (sx, sy)
 
-    def world_to_screen(self, w:tuple[float, float]) -> tuple[float, float]:
-        return self.world_to_screen(w[0], w[1])
-    
     def world_to_screen(self, wx:float, wy:float, ww:float, wh:float) -> tuple[float, float, float, float]:
         """Convert world rect to screen rect."""
         # get rect coordinates
@@ -59,10 +56,7 @@ class Camera:
         sx, sy = wx1, wy2
         sw, sh = wx2 - wx1, wy1 - wy2
         return (sx, sy, sw, sh)
-    
-    def world_to_screen(self, w:tuple[float, float, float, float]) -> tuple[float, float, float, float]:
-        return self.world_to_screen(w[0], w[1], w[2], w[3])
-    
+
     def screen_to_world(self, sx:float, sy:float) -> tuple[float, float]:
         """Convert screen coordinates to world coordinates."""
         assert(self.zoom > 0)
@@ -87,10 +81,8 @@ class Camera:
         wy = ty + dy
         return (wx, wy)
     
-    def screen_to_world(self, s:tuple[float, float]) -> tuple[float, float]:
-        return self.screen_to_world(s[0], s[1])
-    
     # TODO: screen to world rect
+    # TODO: add tuple alternatives
     
 if __name__ == "__main__":
     pg.init()

@@ -69,9 +69,9 @@ class World(Entity):
     def _gen_std(self):
         pass
     
-    def draw(self):
+    def draw(self, layer):
         # get viewport world bounds
-        wx1, wy1, wx2, wy2 = self.camera.get_viewport_bounds()
+        wx1, wy1, wx2, wy2 = State.CAMERA.get_viewport_bounds()
         wx1, wy1 = max(floor(wx1), World.MIN_X), max(floor(wy1), World.MIN_Y)
         wx2, wy2 = min(ceil(wx2), World.MAX_X), min(ceil(wy2), World.MAX_Y)
         
@@ -83,7 +83,7 @@ class World(Entity):
                 x2, y2 = State.CAMERA.world_to_screen(i + 1, j + 1)
                 
                 pg.draw.rect(
-                    self.world_surf, 
+                    layer, 
                     Block.BLOCKS[block_id].colour,
                     (
                         x1, y2,

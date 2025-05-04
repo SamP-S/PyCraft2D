@@ -9,6 +9,6 @@ class State:
     CAMERA = None
     
     # entities  
-    WORLD = None
-    PLAYER = None
-    CURSOR = None
+    world = None
+    player = None
+    cursor = None

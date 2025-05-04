@@ -22,11 +22,15 @@ class App:
         self.clock = pg.time.Clock()
         self.exit_flag = False
         
+        # set up camera
+        State.CAMERA = Camera()
+        
         # entities
         State.world = World()
         State.player = Player("Steve")
         State.cursor = Cursor()
-        State.camera = Camera(State.player)    
+        State.CAMERA.target = State
+            
         
         # set player start position
         State.player.x = 0
@@ -61,7 +65,7 @@ class App:
             self.screen.fill((100, 240, 255, 255))
             self.world_surf.fill((0, 0, 0, 0))
             
-            self.draw_world()
+            State.world.draw(self.world_surf)
             pg.draw.rect(
                 self.world_surf,
                 pg.color.THECOLORS["black"], 
@@ -75,8 +79,6 @@ class App:
         # cleanup
         pg.display.quit()
         pg.quit()
-        
-    def draw_world(self):
         
 
 if __name__ == "__main__":

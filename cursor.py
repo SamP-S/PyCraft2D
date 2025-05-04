@@ -8,7 +8,8 @@ class Cursor(Entity):
         super().__init__()
     
     def update(self, dt):
-        self.x, self.y = State.CAMERA.screen_to_world(pg.mouse.get_pos())
+        cx, cy = pg.mouse.get_pos()
+        self.x, self.y = State.CAMERA.screen_to_world(cx, cy)
         
     def draw(self):
         pass
