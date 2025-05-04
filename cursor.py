@@ -20,4 +20,4 @@ class Cursor(Entity):
         assert(isinstance(self.colour, tuple) and len(self.colour) == 3)
         assert(self.width > 0)
         sr = State.CAMERA.world_to_screen_rect(self.x, self.y, 1, 1)
-        pg.draw.rect(layer, self.COLOUR, sr, width=self.width)
+        pg.draw.rect(layer, self.colour, sr, width=self.width)

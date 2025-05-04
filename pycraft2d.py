@@ -65,12 +65,8 @@ class App:
             self.world_surf.fill((0, 0, 0, 0))
             
             State.world.draw(self.world_surf)
-            pg.draw.rect(
-                self.world_surf,
-                pg.color.THECOLORS["black"], 
-                State.CAMERA.world_to_screen_rect(State.cursor.x, State.cursor.y, 1, 1),
-                width=1
-            )
+            State.player.draw(self.world_surf)
+            State.cursor.draw(self.world_surf)
             
             self.screen.blit(self.world_surf, (0, 0))
             pg.display.flip()

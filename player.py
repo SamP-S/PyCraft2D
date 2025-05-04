@@ -13,7 +13,7 @@ class Player(Entity):
         self.dx:float = 0.0
         self.dy:float = 0.0
         # draw
-        self.colour:tuple[int, int, int] = (0, 255, 0)
+        self.colour:tuple[int, int, int] = (0, 0, 255)
         
     def update(self, dt:float):
         # get velocity
@@ -33,5 +33,5 @@ class Player(Entity):
         assert(layer is not None)
         assert(isinstance(self.colour, tuple) and len(self.colour) == 3)
         # draw player
-        sr = State.CAMERA.world_to_screen_rect(self.x, self.y, 1, 1)
-        pg.draw.rect(layer, Player.COLOUR, sr)
+        sr = State.CAMERA.world_to_screen_rect(self.x, self.y, 1, 2)
+        pg.draw.rect(layer, self.colour, sr)
