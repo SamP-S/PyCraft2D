@@ -47,7 +47,7 @@ class Camera:
         sy = h - y
         return (sx, sy)
 
-    def world_to_screen(self, wx:float, wy:float, ww:float, wh:float) -> tuple[float, float, float, float]:
+    def world_to_screen_rect(self, wx:float, wy:float, ww:float, wh:float) -> tuple[float, float, float, float]:
         """Convert world rect to screen rect."""
         # get rect coordinates
         wx1, wy1 = self.world_to_screen(wx, wy)

@@ -75,21 +75,13 @@ class World(Entity):
         wx1, wy1 = max(floor(wx1), World.MIN_X), max(floor(wy1), World.MIN_Y)
         wx2, wy2 = min(ceil(wx2), World.MAX_X), min(ceil(wy2), World.MAX_Y)
         
-        # draw range
+        # draw over view range
         for j in range(wy1, wy2 + 1):
             for i in range(wx1, wx2 + 1):
-                block_id = self.world.get_block(i, j)
-                x1, y1 = State.CAMERA.world_to_screen(i, j)
-                x2, y2 = State.CAMERA.world_to_screen(i + 1, j + 1)
-                
-                pg.draw.rect(
-                    layer, 
-                    Block.BLOCKS[block_id].colour,
-                    (
-                        x1, y2,
-                        x2 - x1, y1 - y2
-                    )
-                )
+                # draw block
+                block_id = State.world.get_block(i, j)
+                x, y, w, h = State.CAMERA.world_to_screen_rect(i, j, 1, 1)
+                pg.draw.rect(layer, Block.BLOCKS[block_id].colour, (x, y, w, h))
 
 if __name__ == "__main__":
     world = World()

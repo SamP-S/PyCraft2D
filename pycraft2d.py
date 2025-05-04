@@ -29,8 +29,7 @@ class App:
         State.world = World()
         State.player = Player("Steve")
         State.cursor = Cursor()
-        State.CAMERA.target = State
-            
+        State.CAMERA.target = State.player
         
         # set player start position
         State.player.x = 0
@@ -53,7 +52,7 @@ class App:
                 elif event.type == pg.WINDOWRESIZED:
                     print(f"{event.type} ({event.x} {event.y})")
                 elif event.type == pg.MOUSEBUTTONDOWN or event.type == pg.MOUSEBUTTONUP:
-                    print(f"{event.type} ({event.pos[0]} {event.pos[1]} {event.button})-> <{self.camera.screen_to_world(event.pos[0], event.pos[1])}>")
+                    print(f"{event.type} ({event.pos[0]} {event.pos[1]} {event.button})")
                 elif event.type == pg.MOUSEMOTION:
                     pass
             
@@ -69,7 +68,7 @@ class App:
             pg.draw.rect(
                 self.world_surf,
                 pg.color.THECOLORS["black"], 
-                State.CAMERA.world_to_screen(State.CURSOR.x, State.CURSOR.y, 1, 1),
+                State.CAMERA.world_to_screen_rect(State.cursor.x, State.cursor.y, 1, 1),
                 width=1
             )
             
