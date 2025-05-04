@@ -13,9 +13,6 @@ class Entity:
         self.parent:Entity|None = None
         self.children:list[Entity] = []
         
-        # entity resources
-        self.drawable:Drawable|None = None
-        
     def add_child(self, child:Entity):
         """Add a child entity to this entity."""
         assert(isinstance(child, Entity))
@@ -30,6 +27,3 @@ class Entity:
         """Draw this entity."""
         assert(layer is not None)
         
-        # draw if entity has drawable
-        if self.drawable is not None:
-            self.drawable.draw(layer)
