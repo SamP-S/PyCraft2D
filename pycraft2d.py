@@ -25,7 +25,7 @@ class App:
         self.player = Player("Steve")
         self.cursor = Cursor()
         self.cursor.player = self.player
-        self.camera = Camera()    
+        self.camera = Camera(self.player)    
         
         # set player start position
         self.player.x = 0
@@ -81,11 +81,14 @@ class App:
         pg.quit()
         
     def draw_world(self):
+        wx1, wy1, wx2, wy2 = self.camera.get_viewport_bounds()
+        wx1, wy1 = max(floor(wx1), World.MIN_X), max(floor(wy1), World.MIN_Y)
+        wx2, wy2 = min(ceil(wx2), World.MAX_X), min(ceil(wy2), World.MAX_Y)
+        
         # draw chunk
-        for k, chunk in enumerate(self.world.chunks):
-            for pos, block_id in enumerate(chunk.blocks):
-                y = pos // Chunk.WIDTH
-                x = pos - y * Chunk.WIDTH                    # draw block
+        for y in range(wy1, wy2 + 1):
+            for x in range(wx1, wx2 + 1):
+                block_id = self.world.get_block(x, y)
                 pg.draw.rect(
                     self.world_surf, 
                     Block.BLOCKS[block_id].colour,

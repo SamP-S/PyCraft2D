@@ -13,6 +13,16 @@ class Camera:
         self.zoom: float = 1.0
         self.target: Entity | None = target
         
+    def get_viewport_bounds(self) -> tuple[float, float, float, float]:
+        """Get the viewport bounds."""
+        # get viewport screen bounds
+        vx1, vy1 = (0, 0)
+        vx2, vy2 = pg.display.get_surface().get_size()
+        # convert to world coordinates
+        wx1, wy1 = self.screen_to_world(vx1, vy2)
+        wx2, wy2 = self.screen_to_world(vx2, vy1)
+        return (wx1, wy1, wx2, wy2)
+        
     def world_to_screen(self, wx:float, wy:float) -> tuple[float, float]:
         """Convert world coordinates to screen coordinates."""
         assert(self.zoom > 0)
@@ -69,4 +79,5 @@ if __name__ == "__main__":
     print(camera.screen_to_world(400, 300))
     print(camera.world_to_screen(1, 1))
     print(camera.screen_to_world(1, 1))
+    print(camera.get_viewport_bounds())
     pg.quit()

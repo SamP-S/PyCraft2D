@@ -5,8 +5,8 @@ from core import *
 
 class Chunk:
 
-    WIDTH = 32
-    HEIGHT = 64
+    WIDTH = 2**5
+    HEIGHT = 2**6
 
     def __init__(self, x, blocks):
         self.x = x
@@ -47,7 +47,6 @@ class World(Entity):
         chunk_idx = (x + World.RANGE_X // 2) // Chunk.WIDTH
         chunk_x = x % Chunk.WIDTH
         self.chunks[chunk_idx].blocks[y * Chunk.WIDTH + chunk_x] = block_id
-        print(f"Set block at ({x}, {y}) : <{chunk_idx} {y * Chunk.WIDTH + chunk_x} ({chunk_x} {y}) > to {block_id}")
     
     def fill_blocks(self, ox, oy, dx, dy, block_id):
         assert(ox >= World.MIN_X and ox <= World.MAX_X)
