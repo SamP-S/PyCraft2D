@@ -6,6 +6,7 @@ class Player:
     MAX_SPEED = 4.0
     
     def __init__(self, name: str):
+        super().__init__()
         self.name = name
         self.x = 0
         self.y = 0

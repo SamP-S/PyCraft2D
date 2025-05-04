@@ -1,7 +1,8 @@
+from math import *
 import random as r
 from blocks import *
 from core import *
-
+from state import *
 
 class Chunk:
 
@@ -21,6 +22,7 @@ class World(Entity):
     RANGE_X, RANGE_Y = MAX_X - MIN_X + 1, MAX_Y - MIN_Y + 1
     
     def __init__(self):
+        super().__init__()
         self.name = "Default World"
         self.seed = r.randint(0, 1000)
         self.generator = "flat"
@@ -68,7 +70,26 @@ class World(Entity):
         pass
     
     def draw(self):
-        pass
+        # get viewport world bounds
+        wx1, wy1, wx2, wy2 = self.camera.get_viewport_bounds()
+        wx1, wy1 = max(floor(wx1), World.MIN_X), max(floor(wy1), World.MIN_Y)
+        wx2, wy2 = min(ceil(wx2), World.MAX_X), min(ceil(wy2), World.MAX_Y)
+        
+        # draw range
+        for j in range(wy1, wy2 + 1):
+            for i in range(wx1, wx2 + 1):
+                block_id = self.world.get_block(i, j)
+                x1, y1 = State.CAMERA.world_to_screen(i, j)
+                x2, y2 = State.CAMERA.world_to_screen(i + 1, j + 1)
+                
+                pg.draw.rect(
+                    self.world_surf, 
+                    Block.BLOCKS[block_id].colour,
+                    (
+                        x1, y2,
+                        x2 - x1, y1 - y2
+                    )
+                )
 
 if __name__ == "__main__":
     world = World()
