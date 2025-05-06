@@ -85,6 +85,7 @@ class World(Entity):
                 pg.draw.rect(layer, Block.BLOCKS[block_id].colour, (x, y, w, h))
 
 if __name__ == "__main__":
+    print(f"run {__file__}")
     world = World()
     world.set_block(0, 0, 1)
     world.set_block(0, 1, 2)
