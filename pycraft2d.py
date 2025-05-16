@@ -22,6 +22,9 @@ class App:
         self.clock = pg.time.Clock()
         self.exit_flag = False
         
+        self.block_atlas = pg.image.load(os.path.join("assets", "blocks.png"))
+        self.steve_skin = pg.image.load(os.path.join("assets", "steve.png"))
+        
         # set up camera
         State.CAMERA = Camera()
         
@@ -69,6 +72,7 @@ class App:
             State.cursor.draw(self.world_surf)
             
             self.screen.blit(self.world_surf, (0, 0))
+            self.screen.blit(self.block_atlas, (0, 0), (0, 0, 512, 512))
             pg.display.flip()
             
         # cleanup

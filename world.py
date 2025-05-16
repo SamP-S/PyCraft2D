@@ -81,11 +81,9 @@ class World(Entity):
                 # draw block
                 block_id = State.world.get_block(i, j)
                 x, y, w, h = State.CAMERA.world_to_screen_rect(i, j, 1, 1)
-                w, h = ceil(w), ceil(h) # round up to avoid gaps
                 pg.draw.rect(layer, Block.BLOCKS[block_id].colour, (x, y, w, h))
 
 if __name__ == "__main__":
-    print(f"run {__file__}")
     world = World()
     world.set_block(0, 0, 1)
     world.set_block(0, 1, 2)
